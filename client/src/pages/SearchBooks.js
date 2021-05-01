@@ -51,8 +51,6 @@ const SearchBooks = () => {
         link: book.volumeInfo.infoLink, 
       }));
 
-      console.log(bookData);
-
       setSearchedBooks(bookData);
       setSearchInput('');
     } catch (err) {
