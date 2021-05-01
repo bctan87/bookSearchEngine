@@ -48,7 +48,10 @@ const SearchBooks = () => {
         title: book.volumeInfo.title,
         description: book.volumeInfo.description,
         image: book.volumeInfo.imageLinks?.thumbnail || '',
+        link: book.volumeInfo.infoLink, 
       }));
+
+      console.log(bookData);
 
       setSearchedBooks(bookData);
       setSearchInput('');
@@ -73,7 +76,7 @@ const SearchBooks = () => {
      
       // Use the Apollo useMutation() Hook to execute the SAVE_BOOK mutation
       const {data} = await saveBook({
-        variables: { input: bookToSave }
+        variables: { input: bookToSave },
       });
 
       // if book successfully saves to user's account, save book id to state
@@ -124,7 +127,8 @@ const SearchBooks = () => {
                   <Card.Img src={book.image} alt={`The cover for ${book.title}`} variant='top' />
                 ) : null}
                 <Card.Body>
-                  <Card.Title>{book.title}</Card.Title>
+                  <Card.Title><a href={book.link}>{book.title}</a></Card.Title>
+                  
                   <p className='small'>Authors: {book.authors}</p>
                   <Card.Text>{book.description}</Card.Text>
                   {Auth.loggedIn() && (
